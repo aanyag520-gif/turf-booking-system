@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Register – Turf Booking System</title>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo"><span style="font-size:15px;">🌿</span><span>Turf Booking System</span></a>
+  <div class="right">
+    <a href="#">About Us</a><a href="#">Contact Us</a>
+    <span class="sep">|</span>
+    <a href="register.html">Register Customer</a>
+    <a href="login.html">Login</a>
+  </div>
+</nav>
+
+<div class="auth-page">
+  <div class="card" style="width:460px;">
+    <div class="card-head">Register customer</div>
+    <div class="card-body">
+      <div class="grid2">
+        <div class="fg"><label>First Name</label><input type="text" id="fn" placeholder="Sanjukta"/></div>
+        <div class="fg"><label>Last Name</label><input type="text" id="ln" placeholder="2"/></div>
+        <div class="fg"><label>Email Id</label><input type="email" id="em" placeholder="customer@gmail.com"/></div>
+        <div class="fg"><label>Password</label><input type="password" id="pw" placeholder="••••"/></div>
+        <div class="fg"><label>User Gender</label><select id="gd"><option>Male</option><option>Female</option><option>Other</option></select></div>
+        <div class="fg"><label>Contact No</label><input type="text" id="ph" placeholder="1234567899"/></div>
+        <div class="fg"><label>Age</label><input type="number" id="ag" placeholder="0"/></div>
+        <div class="fg"><label>Street</label><input type="text" id="st" placeholder="abcd colony"/></div>
+        <div class="fg"><label>City</label><input type="text" id="ct" placeholder="Kolkata"/></div>
+        <div class="fg"><label>Pincode</label><select id="pc"><option>700135</option><option>700001</option><option>110001</option></select></div>
+      </div>
+      <button class="btn-form" onclick="reg()">Register User</button>
+      <p class="fswitch">Already have an account? <a href="login.html">Login here</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="t"></div>
+<script>
+function toast(m){var t=document.getElementById('t');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},3000);}
+function reg(){
+  if(!document.getElementById('fn').value.trim()||!document.getElementById('em').value.trim()||!document.getElementById('pw').value.trim()){toast('Please fill all required fields.');return;}
+  toast('Registered! Redirecting...');
+  setTimeout(function(){window.location.href='login.html';},1400);
+}
+</script>
+</body>
+</html>

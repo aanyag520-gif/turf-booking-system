@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Admin – Turf Booking System</title>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo"><span style="font-size:15px;">🌿</span><span>Turf Booking System</span></a>
+  <div class="right">
+    <a href="#">About Us</a><a href="#">Contact Us</a>
+    <span class="sep">|</span>
+    <a href="#" onclick="show('addGround')">Add Ground</a>
+    <a href="#" onclick="show('viewGrounds')">View All Ground</a>
+    <a href="#" onclick="show('viewCustomers')">View All Customer</a>
+    <a href="#" onclick="show('viewBookings')">View All Bookings</a>
+    <a href="login.html">Logout</a>
+  </div>
+</nav>
+
+<div class="admin-page">
+  <div class="admin-content">
+
+    <!-- Fig. 8: Add Ground -->
+    <div id="sec-addGround" class="asection active">
+      <div class="form-card">
+        <div class="card-head">Add Ground</div>
+        <div class="card-body">
+          <div class="grid2">
+            <div class="fg"><label>Ground Name</label><input type="text" id="ag_name" placeholder="football"/></div>
+            <div class="fg"><label>Ground Description</label><textarea id="ag_desc" rows="3" style="width:100%;padding:5px 7px;border:1px solid #aaa;border-radius:2px;font-size:12px;font-family:Arial,sans-serif;resize:vertical;" placeholder="Grassy side turf"></textarea></div>
+            <div class="fg"><label>Ground width</label><input type="number" id="ag_w" placeholder="55"/></div>
+            <div class="fg"><label>Ground Length</label><input type="number" id="ag_l" placeholder="11"/></div>
+            <div class="fg"><label>Ground Height</label><input type="number" id="ag_h" placeholder="18"/></div>
+            <div class="fg"><label>Price</label><input type="number" id="ag_p" placeholder="200"/></div>
+            <div class="fg" style="grid-column:1/-1;">
+              <label>Select Ground Image</label>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <label style="background:#e8e8e8;border:1px solid #bbb;padding:4px 10px;font-size:11px;cursor:pointer;border-radius:2px;">
+                  Choose File<input type="file" accept="image/*" id="ag_img" style="display:none;" onchange="document.getElementById('imgn').textContent=this.files[0]?this.files[0].name:''"/>
+                </label>
+                <span id="imgn" style="font-size:11px;color:#666;">cricket turf 2.jpg</span>
+              </div>
+            </div>
+          </div>
+          <button class="btn-form" onclick="addGround()" style="margin-top:10px;">Add Ground</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- View All Grounds -->
+    <div id="sec-viewGrounds" class="asection">
+      <div class="table-wrap" style="margin:0;">
+        <div class="table-head">All Grounds</div>
+        <table class="dtable">
+          <thead><tr><th>Ground Name</th><th>Description</th><th>Width</th><th>Length</th><th>Height</th><th>Price/hr</th></tr></thead>
+          <tbody id="gtbody">
+            <tr><td>Hockey Ground</td><td>some description</td><td>55</td><td>91</td><td>10</td><td>₹3000</td></tr>
+            <tr><td>Football Arena</td><td>Natural grass pitch</td><td>60</td><td>100</td><td>12</td><td>₹2500</td></tr>
+            <tr><td>Cricket Ground</td><td>Full pitch with nets</td><td>70</td><td>120</td><td>15</td><td>₹4000</td></tr>
+            <tr><td>Badminton Court</td><td>Indoor professional net</td><td>20</td><td>44</td><td>25</td><td>₹800</td></tr>
+            <tr><td>Futsal Ground</td><td>Small-sided indoor</td><td>30</td><td>60</td><td>8</td><td>₹1500</td></tr>
+            <tr><td>Basketball Court</td><td>Full-size outdoor</td><td>50</td><td>94</td><td>20</td><td>₹1200</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Fig. 9: View All Customers -->
+    <div id="sec-viewCustomers" class="asection">
+      <div class="table-wrap" style="margin:0;">
+        <div class="table-head">All Customers</div>
+        <table class="dtable">
+          <thead><tr><th>First Name</th><th>Last Name</th><th>Email Id</th><th>Phone No</th><th>Address</th></tr></thead>
+          <tbody>
+            <tr><td>Demo</td><td>Customer1</td><td>customer1@gmail.com</td><td>1234567899</td><td>abc, street New York, 456123</td></tr>
+            <tr><td>Customer</td><td>2</td><td>customer2@gmail.com</td><td>1234567890</td><td>abcd, colony, kolkata 700122</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- View All Bookings -->
+    <div id="sec-viewBookings" class="asection">
+      <div class="table-wrap" style="margin:0;">
+        <div class="table-head">All Bookings</div>
+        <table class="dtable">
+          <thead><tr><th>Ground Name</th><th>Booking Id</th><th>Customer</th><th>Contact</th><th>Date</th><th>Slot</th><th>Amount</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Hockey Ground</td><td>VW0620RMH</td><td>Demo Customer1</td><td>1234567899</td><td>2024-12-12</td><td>05:00–06:00 pm</td><td>3000.0</td><td><span class="s-pending">Pending</span></td></tr>
+            <tr><td>Hockey Ground</td><td>B09YN5T6N0</td><td>Demo Customer1</td><td>1234567899</td><td>2024-12-05</td><td>04:00–05:00 pm</td><td>3000.0</td><td><span class="s-cancel">Cancel</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="t"></div>
+<script>
+function toast(m){var t=document.getElementById('t');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},3000);}
+function show(name){
+  document.querySelectorAll('.asection').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('sec-'+name).classList.add('active');
+}
+function addGround(){
+  var name=document.getElementById('ag_name').value.trim();
+  if(!name){toast('Ground Name is required.');return;}
+  var w=document.getElementById('ag_w').value||'—';
+  var l=document.getElementById('ag_l').value||'—';
+  var h=document.getElementById('ag_h').value||'—';
+  var p=document.getElementById('ag_p').value||'0';
+  var desc=document.getElementById('ag_desc').value||'—';
+  var tr=document.createElement('tr');
+  tr.innerHTML='<td>'+name+'</td><td>'+desc+'</td><td>'+w+'</td><td>'+l+'</td><td>'+h+'</td><td>₹'+p+'</td>';
+  document.getElementById('gtbody').appendChild(tr);
+  toast('Ground added!');
+  show('viewGrounds');
+}
+</script>
+</body>
+</html>

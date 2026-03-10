@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>My Bookings – Turf Booking System</title>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo"><span style="font-size:15px;">🌿</span><span>Turf Booking System</span></a>
+  <div class="right">
+    <a href="#">About Us</a><a href="#">Contact Us</a>
+    <span class="sep">|</span>
+    <a href="mybookings.html">My Wallet</a>
+    <a href="mybookings.html">Booked Turfs</a>
+    <a href="login.html">Logout</a>
+  </div>
+</nav>
+
+<div class="mybk-page">
+  <div class="table-wrap">
+    <div class="table-head">My Bookings</div>
+    <table class="dtable">
+      <thead>
+        <tr>
+          <th>Ground</th>
+          <th>Ground Name</th>
+          <th>Booking Id</th>
+          <th>Customer Name</th>
+          <th>Customer Contact</th>
+          <th>Booking Date</th>
+          <th>Booking Time Slot</th>
+          <th>Total Payable Amount</th>
+          <th>Booking Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="bkbody">
+        <!-- Default rows from paper Fig.7 -->
+        <tr>
+          <td><span class="gicon">🏑</span></td>
+          <td>Hockey Ground</td>
+          <td>VW0620RMH</td>
+          <td>Demo Customer1</td>
+          <td>1234567899</td>
+          <td>2024-12-12</td>
+          <td>05:00 - 06:00 pm</td>
+          <td>3000.0</td>
+          <td><span class="s-pending">Pending</span></td>
+          <td><button class="btn-cancel" onclick="cancelRow(this)">Cancel Booking</button></td>
+        </tr>
+        <tr>
+          <td><span class="gicon">🏑</span></td>
+          <td>Hockey Ground</td>
+          <td>B09YN5T6N0</td>
+          <td>Demo Customer1</td>
+          <td>1234567899</td>
+          <td>2024-12-05</td>
+          <td>04:00 - 05:00 pm</td>
+          <td>3000.0</td>
+          <td><span class="s-cancel">Cancel</span></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="toast" id="t"></div>
+<script>
+function toast(m){var t=document.getElementById('t');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},3000);}
+
+var icons={'Hockey Ground':'🏑','Football Arena':'⚽','Cricket Ground':'🏏','Badminton Court':'🏸','Futsal Ground':'🥅','Basketball Court':'🏀'};
+window.addEventListener('DOMContentLoaded',function(){
+  var saved=JSON.parse(sessionStorage.getItem('bks')||'[]');
+  var tbody=document.getElementById('bkbody');
+  saved.forEach(function(b){
+    var tr=document.createElement('tr');
+    tr.innerHTML='<td><span class="gicon">'+(icons[b.turf]||'🏟')+'</span></td>'
+      +'<td>'+b.turf+'</td><td>'+b.id+'</td><td>Customer</td><td>—</td>'
+      +'<td>'+b.date+'</td><td>'+b.slot+'</td><td>'+b.price.replace('₹','')+'</td>'
+      +'<td><span class="s-confirmed">Confirmed</span></td>'
+      +'<td><button class="btn-cancel" onclick="cancelRow(this)">Cancel Booking</button></td>';
+    tbody.insertBefore(tr,tbody.firstChild);
+  });
+});
+
+function cancelRow(btn){
+  var tr=btn.closest('tr');
+  tr.querySelector('span').textContent='Cancel';
+  tr.querySelector('span').className='s-cancel';
+  btn.remove();
+  toast('Booking cancelled.');
+}
+</script>
+</body>
+</html>

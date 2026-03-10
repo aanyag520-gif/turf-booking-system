@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Book Ground – Turf Booking System</title>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo"><span style="font-size:15px;">🌿</span><span>Turf Booking System</span></a>
+  <div class="right">
+    <a href="#">About Us</a><a href="#">Contact Us</a>
+    <span class="sep">|</span>
+    <a href="mybookings.html">My Wallet</a>
+    <a href="mybookings.html">Booked Turfs</a>
+    <a href="login.html">Logout</a>
+  </div>
+</nav>
+
+<div class="booking-wrap">
+  <div class="booking-main">
+    <div class="booking-photo" id="bphoto"></div>
+    <div class="booking-content">
+      <h2 id="btitle">Hockey Ground</h2>
+      <p class="dlabel">Description :</p>
+      <p class="dlabel" style="margin-bottom:8px;">some description</p>
+      <p class="dims" id="bdims">Width : 55 ft &nbsp; Length : 91 ft &nbsp; Height : 10 ft</p>
+      <p class="pnote">Note: The price mentioned below are for 1 hour</p>
+      <p class="pline" id="bprice">Price : ₹3000</p>
+      <div class="bform-row">
+        <div class="fg"><label>Booking Date</label><input type="date" id="bdate"/></div>
+        <div class="fg"><label>Booking Time Slot</label>
+          <select id="bslot">
+            <option>04:00 - 05:00 am</option><option>05:00 - 06:00 am</option>
+            <option>06:00 - 07:00 am</option><option>07:00 - 08:00 am</option>
+            <option>08:00 - 09:00 am</option><option>09:00 - 10:00 am</option>
+            <option selected>04:00 - 05:00 pm</option><option>05:00 - 06:00 pm</option>
+            <option>06:00 - 07:00 pm</option><option>07:00 - 08:00 pm</option>
+            <option>08:00 - 09:00 pm</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-bkground" onclick="doBook()">Book Ground</button>
+      <br/>
+      <button class="btn-addrev">Add Review</button>
+    </div>
+  </div>
+  <div class="booking-sidebar">
+    <div class="reviews-box"><h4>Reviews</h4><p style="font-style:italic;font-size:10.5px;color:#aaa;">No reviews yet.</p></div>
+  </div>
+</div>
+
+<div class="toast" id="t"></div>
+<script>
+var p=new URLSearchParams(window.location.search);
+var turf=p.get('t')||'Hockey Ground';
+var price=p.get('p')||'3000';
+var w=p.get('w')||'55',l=p.get('l')||'91',h=p.get('h')||'10';
+document.getElementById('btitle').textContent=turf;
+document.getElementById('bprice').textContent='Price : ₹'+price;
+document.getElementById('bdims').innerHTML='Width : '+w+' ft &nbsp; Length : '+l+' ft &nbsp; Height : '+h+' ft';
+document.getElementById('bdate').value=new Date().toISOString().split('T')[0];
+
+function toast(m){var t=document.getElementById('t');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},3000);}
+function doBook(){
+  var d=document.getElementById('bdate').value;
+  var s=document.getElementById('bslot').value;
+  if(!d){toast('Please select a date.');return;}
+  var bks=JSON.parse(sessionStorage.getItem('bks')||'[]');
+  var id=Math.random().toString(36).substr(2,10).toUpperCase();
+  bks.unshift({id:id,turf:turf,price:'₹'+price,date:d,slot:s,status:'Pending'});
+  sessionStorage.setItem('bks',JSON.stringify(bks));
+  toast('Booking confirmed! Redirecting...');
+  setTimeout(function(){window.location.href='mybookings.html';},1400);
+}
+</script>
+</body>
+</html>
